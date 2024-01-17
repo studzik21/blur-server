@@ -44,7 +44,10 @@ def rename_file(filename: str):
     return updated_filename
 
 def get_url(filename):
-    return f"{S3_BUCKET_BASE_URL}/{filename}"
+    return s3.generate_presigned_url('get_object',
+                                                    Params={'Bucket': S3_BUCKET_NAME,
+                                                            'Key': filename},
+                                                    ExpiresIn=86400)
 
 def upload_file_to_s3(path, filename) -> str:
     """
