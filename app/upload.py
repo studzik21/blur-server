@@ -43,15 +43,15 @@ def rename_file(filename: str):
 
     return updated_filename
 
+def get_url(filename):
+    return f"{S3_BUCKET_BASE_URL}/{filename}"
 
 def upload_file_to_s3(path, filename) -> str:
     """
     Upload file using normal synchronous way
     """
-    new_name = rename_file(filename)
     s3.upload_file(
         path,
         S3_BUCKET_NAME,
-        new_name,
+        filename,
     )
-    return f"{S3_BUCKET_BASE_URL}/{new_name}"
